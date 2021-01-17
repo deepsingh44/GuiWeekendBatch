@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
 
 public class LoginFile extends JFrame {
 
@@ -33,8 +34,10 @@ public class LoginFile extends JFrame {
 	public LoginFile() {
 		setTitle("LoginFile");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 557, 454);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 102, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
