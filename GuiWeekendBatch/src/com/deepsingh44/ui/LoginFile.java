@@ -11,9 +11,19 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.JRadioButton;
+import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class LoginFile extends JFrame {
 
@@ -40,6 +50,9 @@ public class LoginFile extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	String gender = "";
+	private JPasswordField passwordField;
+
 	public LoginFile() {
 		setTitle("Cal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,29 +86,70 @@ public class LoginFile extends JFrame {
 		contentPane.add(tsecondnum);
 
 		JButton btnNewButton = new JButton("Add Here");
-		btnNewButton.setBounds(127, 277, 194, 34);
+		btnNewButton.setEnabled(false);
+		btnNewButton.setBounds(127, 337, 194, 34);
 		contentPane.add(btnNewButton);
 
-		JLabel tresult = new JLabel("", JLabel.CENTER);
-		tresult.setForeground(Color.WHITE);
-		tresult.setBounds(121, 208, 200, 23);
-		contentPane.add(tresult);
+		JCheckBox chckbxIAcceptAll = new JCheckBox("I accept all terms and condition.");
+
+		chckbxIAcceptAll.setBounds(164, 167, 224, 23);
+		contentPane.add(chckbxIAcceptAll);
+
+		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				gender = "Male";
+			}
+		});
+		rdbtnMale.setBounds(129, 218, 109, 23);
+		contentPane.add(rdbtnMale);
+
+		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				gender = "Female";
+			}
+		});
+		rdbtnFemale.setBounds(252, 218, 109, 23);
+		contentPane.add(rdbtnFemale);
+
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnMale);
+		bg.add(rdbtnFemale);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(164, 36, 224, 20);
+		contentPane.add(passwordField);
+
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.WHITE);
+		lblPassword.setBounds(27, 23, 115, 34);
+		contentPane.add(lblPassword);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(
+				new DefaultComboBoxModel(new String[] { "Select Name", "Deep Singh", "Ramesh Singh", "Ashok Singh" }));
+		comboBox.setBounds(164, 262, 157, 22);
+		contentPane.add(comboBox);
 
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String first = tfirstnum.getText();
-				String second = tsecondnum.getText();
-				// convert
-				int x = Integer.parseInt(first);
-				int y = Integer.parseInt(second);
-				// addition
-				// System.out.println(x+y);
-				// set result in User interface
-				tresult.setText(String.valueOf(x + y));
+				/*
+				 * String first = tfirstnum.getText(); String second = tsecondnum.getText(); //
+				 * convert int x = Integer.parseInt(first); int y = Integer.parseInt(second); //
+				 * addition // System.out.println(x+y); // set result in User interface
+				 * tresult.setText(String.valueOf(x + y));
+				 */
+				// System.out.println(chckbxIAcceptAll.getText());
 
+				// System.out.println(gender);
+				/*
+				 * char c[]=passwordField.getPassword(); String pass=String.valueOf(c);
+				 * System.out.println(pass);
+				 */
 			}
 		});
 
@@ -116,5 +170,26 @@ public class LoginFile extends JFrame {
 				}
 			}
 		});
+
+		chckbxIAcceptAll.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				JCheckBox ck = (JCheckBox) e.getSource();
+				if (ck.isSelected()) {
+					btnNewButton.setEnabled(true);
+				} else {
+					btnNewButton.setEnabled(false);
+				}
+			}
+		});
+
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					String item = comboBox.getSelectedItem().toString();
+					System.out.println(item);
+				}
+			}
+		});
+
 	}
 }
