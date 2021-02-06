@@ -2,6 +2,7 @@ package com.deepsingh44.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,7 +24,14 @@ import java.awt.event.ItemEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import javax.swing.border.BevelBorder;
 
 public class LoginFile extends JFrame {
 
@@ -87,7 +95,7 @@ public class LoginFile extends JFrame {
 
 		JButton btnNewButton = new JButton("Add Here");
 		btnNewButton.setEnabled(false);
-		btnNewButton.setBounds(127, 337, 194, 34);
+		btnNewButton.setBounds(220, 370, 194, 34);
 		contentPane.add(btnNewButton);
 
 		JCheckBox chckbxIAcceptAll = new JCheckBox("I accept all terms and condition.");
@@ -129,8 +137,14 @@ public class LoginFile extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(
 				new DefaultComboBoxModel(new String[] { "Select Name", "Deep Singh", "Ramesh Singh", "Ashok Singh" }));
-		comboBox.setBounds(164, 262, 157, 22);
+		comboBox.setBounds(216, 260, 157, 22);
 		contentPane.add(comboBox);
+
+		JLabel lblNewLabel = new JLabel("");
+
+		lblNewLabel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel.setBounds(10, 264, 169, 115);
+		contentPane.add(lblNewLabel);
 
 		btnNewButton.addActionListener(new ActionListener() {
 
@@ -187,6 +201,20 @@ public class LoginFile extends JFrame {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					String item = comboBox.getSelectedItem().toString();
 					System.out.println(item);
+				}
+			}
+		});
+
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser f = new JFileChooser();
+				int i = f.showOpenDialog(LoginFile.this);
+				if (i == JFileChooser.APPROVE_OPTION) {
+					File file = f.getSelectedFile();
+					System.out.println(file.getAbsolutePath());
+					ImageIcon ic = new ImageIcon(file.getAbsolutePath());
+					lblNewLabel.setIcon(new ImageIcon(ic.getImage().getScaledInstance(169, 115, Image.SCALE_SMOOTH)));
 				}
 			}
 		});
